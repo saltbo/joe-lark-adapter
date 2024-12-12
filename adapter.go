@@ -86,7 +86,7 @@ func (a larkAdapter) Send(text, channel string) error {
 	}
 
 	req := larkim.NewCreateMessageReqBuilder().
-		ReceiveIdType(larkim.ReceiveIdTypeChatId).
+		ReceiveIdType(makeReceiveIdType(channel)).
 		Body(larkim.NewCreateMessageReqBodyBuilder().
 			MsgType(msgType).
 			ReceiveId(channel).
@@ -101,6 +101,14 @@ func (a larkAdapter) Send(text, channel string) error {
 	}
 
 	return err
+}
+
+func makeReceiveIdType(channel string) string {
+	if strings.HasPrefix(channel, "ou_") {
+		return larkim.ReceiveIdTypeOpenId
+	}
+
+	return larkim.ReceiveIdTypeChatId
 }
 
 func (a larkAdapter) Close() error {
