@@ -1,6 +1,6 @@
 module github.com/saltbo/joe-lark-adapter
 
-go 1.23.4
+go 1.18
 
 require (
 	github.com/go-joe/joe v0.12.0
